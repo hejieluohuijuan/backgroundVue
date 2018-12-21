@@ -38,6 +38,7 @@
         </div>
     </Modal>
     <!--/详情-->
+    <---test2018-12-21->
 
     <!--修改-->
 <Modal title="修改" v-model="otherParam.gameIntroduceModal"
@@ -117,7 +118,7 @@ class-name="vertical-center-modal">
                  </Checkbox>
             </CheckboxGroup>
         </FormItem>
-        </FormItem>
+
          <FormItem label="房间设施" prop="formValidate.room_facility">
             <CheckboxGroup v-model="formValidate.room_facility">
                 <Checkbox v-for="(str,i) in datasCurrent.room_facility" :key="i" :label="str">
@@ -545,7 +546,7 @@ export default {
         height:170px;
         float:right;
         font-size: 14px;
-        color:(47,47,47);
+        color:#2F2F2F;
         /* height:500px; */
     }
     .model_img{
