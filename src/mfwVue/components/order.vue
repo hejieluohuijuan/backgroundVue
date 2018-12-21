@@ -10,7 +10,7 @@
             <Input type="text" v-model="formCustom.uid"></Input>
         </FormItem>
         <FormItem>
-            <Button type="primary" @click="handleFormSubmit('formCustom')">Submit</Button>
+            <Button type="primary" @click="handleFormSubmit('formCustom')">搜索</Button>
         </FormItem>
     </Form>
 
@@ -234,7 +234,7 @@ export default {
                     }
                   }
                 },
-                'Edit'
+                '编辑'
               ),
               h(
                 'Button',
@@ -250,7 +250,7 @@ export default {
                     }
                   }
                 },
-                'Delete'
+                '删除'
               )
             ])
           }
@@ -259,7 +259,7 @@ export default {
       data: [],
       totalCount: 5,
       pageSize: 5,
-      pageIndex: 2
+      pageIndex: 1
     }
   },
   methods: {
@@ -367,11 +367,10 @@ export default {
                   // success callback
                   this.getData()
                   this.$Message.info('修改成功')
-                }
-                // err => {
-                //   this.$Message.info('修改失败')
-                // }
-              )
+                },
+                err => {
+                  this.$Message.info('修改失败')
+                })
           } else {
             this.$http
               .post(
@@ -383,11 +382,10 @@ export default {
                   // success callback
                   this.$Message.info('添加成功')
                   this.getData()
-                }
-                // err => {
-                //   this.$Message.info('添加失败')
-                // }
-              )
+                },
+                err => {
+                  this.$Message.info('添加失败')
+                })
           }
           this.modal = false
         } else {

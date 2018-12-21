@@ -5,7 +5,15 @@
       <input type="text" placeholder="搜索" class="search-input" @keyup.enter="searchByKey">
     </div>
 
-    <Table :columns="userColumns" :data="users" class="table table-border"></Table>
+    <Table :columns="userColumns" :data="users" class="table table-border">
+      <template slot-scope="{ row, index }" slot="action">
+        <i-switch size="small" v-model="users[index].status" @on-change="editUserInfo(index)">
+        </i-switch>
+      </template>
+      <!--<template slot-scope="{ row, index }" slot="createTime">-->
+        <!--<span v-model=""></span>-->
+      <!--</template>-->
+    </Table>
     <div style="margin: 10px;overflow: hidden">
       <div style="float: right;">
         <Page :total="userCount" :current="pageIndex" :page-size="pageSize"
@@ -36,9 +44,14 @@ export default {
             return h('div', [
               h('avatar', {
                 props: {
-                  src: 'https://i.loli.net/2017/08/21/599a521472424.jpg'
+                  src: 'https://img2.woyaogexing.com/2018/12/20/062b9adfa560e8da!400x400_big.jpg',
+                  shape:'square',
                 },
-                style: {},
+                style: {
+                  width: '50px',
+                  height: '40px',
+                  margin: '0px',
+                  borderRadius: '5px' },
                 on: {}
               }, 'view')
             ])
@@ -125,28 +138,9 @@ export default {
           }
         },
         {
-          title: '激活',
-          key: 'operate',
+          title: '状态设置',
           align: 'center',
-          render: (h, params) => {
-            return h('div', [
-              h('i-switch', {
-                props: {
-                  // type: 'primary',
-                  size: 'small'
-                },
-                style: {
-                  // marginRight: '5px'
-                }
-                // on: {
-                //   click: () => {
-                //     this.show(params.index)
-                //   }
-                // }
-              }, 'View')
-
-            ])
-          }
+          slot: 'action'
         }
       ]
     }
@@ -155,7 +149,7 @@ export default {
     searchByKey (event) {
       this.axios.get(this.url + 'admin/search', { params: { nickname: event.target.value } }).then((resp) => {
         this.users = resp.data
-        this.users[0].createTime = new Date(this.users[0].createTime)
+        this.parseUserDate()
         console.log(this.users)
       }).catch((resp) => {
         console.log(resp)
@@ -164,7 +158,14 @@ export default {
     getAuthor (id) {
       this.axios.get(this.url + 'admin/search', { params: { userInfoId: id } }).then((resp) => {
         this.author = resp.data
+        this.parseUserDate()
       })
+    },
+    editUserInfo (index) {
+      console.log(index)
+      this.axios.put(this.url + 'admin',
+        this.users[index]
+      ).then().catch()
     },
     onChange (index) {
       this.pageIndex = index
@@ -182,7 +183,29 @@ export default {
         }
       }).then((resp) => {
         this.users = resp.data
+        this.parseUserDate()
       })
+    },
+    parseUserDate () {
+      for (var i = 0; i < this.users.length; i++) {
+        this.users[i].createTime = this.parseDate(this.users[i].createTime);
+        this.users[i].gender = this.users[i].gender? '男':'女';
+
+      }
+    },
+    parseDate (cellval) {
+      var dateVal = cellval + ''
+      if (cellval != null) {
+        var date = new Date(parseInt(dateVal.replace('/Date(', '').replace(')/', ''), 10))
+        var month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
+        var currentDate = date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
+
+        // var hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+        // var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+        // var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+
+        return date.getFullYear() + '-' + month + '-' + currentDate
+      }
     }
   },
   created () {
@@ -193,6 +216,7 @@ export default {
       }
     }).then((resp) => {
       this.users = resp.data
+      this.parseUserDate()
     })
     this.axios.get(this.url + 'admin/count').then((resp) => {
       this.userCount = resp.data

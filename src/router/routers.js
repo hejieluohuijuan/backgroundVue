@@ -110,10 +110,10 @@ export default [
     children: [
       {
         path: 'tables_page',
-        name: '游记分类',
+        name: '游记管理',
         meta: {
           icon: 'md-grid',
-          title: '游记分类'
+          title: '游记管理'
         },
         // component: () => import('@/view/components/tables/tables.vue')
         component: () => import('@/mfwVue/components/Classificationoftravel.vue')
@@ -168,12 +168,12 @@ export default [
       },
       {
         path: 'split_pane_page',
-        name: 'listh1',
+        name: '添加酒店',
         meta: {
           icon: 'md-pause',
-          title: '标注'
+          title: '添加酒店'
         },
-        component: () => import('@/view/components/split-pane/split-pane.vue')
+        component: () => import('@/mfwVue/components/addhotel.vue')
       },
       {
         path: 'editor_page',
