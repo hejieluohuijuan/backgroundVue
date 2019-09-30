@@ -33,7 +33,7 @@ module.exports = {
     config.resolve.alias
       .set('@', resolve('src')) // key,value自行定义，比如.set('@@', resolve('src/components'))
       .set('_c', resolve('src/components'))
-      .set('@l', resolve('http://localhost:8080/adminproject/user'))
+      .set('@l', resolve('http://localhost:8000/club/user'))
   },
   // 设为false打包时不生成.map文件
   productionSourceMap: false,
@@ -43,7 +43,7 @@ module.exports = {
     host: 'localhost', // 自己项目的地址（注意：这里不要加http协议）
     proxy: {
       '/api/*': {
-        target: 'http://localhost:8080/adminproject', // 跨域要访问的地址及端口
+        target: 'http://localhost:8000/club', // 跨域要访问的地址及端口
         changeOrigin: true,
         secure: false
       }

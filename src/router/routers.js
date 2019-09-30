@@ -158,10 +158,10 @@ export default [
     children: [
       {
         path: 'tables_page',
-        name: '查询所有',
+        name: '所有酒店',
         meta: {
           icon: 'md-grid',
-          title: '查询所有'
+          title: '所有酒店'
         },
         // component: () => import('@/view/components/tables/tables.vue')
         component: () => import('@/mfwVue/components/hotel.vue')
