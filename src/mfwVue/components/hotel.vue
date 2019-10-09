@@ -236,6 +236,7 @@ export default {
       },
       // 表单
       formValidate: {
+        id: '',
         hotelId: '',
         hotelName: '',
         hotelLocation: '',
@@ -520,23 +521,24 @@ export default {
           // "Access-Control-Allow-Methods":" . (isset($_GET['allow_method']) ? $_GET['allow_method'] : 'OPTIONS')"
         }
       }
-      this.axios.post('http://localhost:8080/adminproject/updateHotel', {
+      this.axios.post('http://localhost:8000/club/hotel/updateHotel', {
         params: {
-          hotel_id: this.formValidate.hotel_id,
-          hotel_name: this.formValidate.hotel_name,
-          hotel_location: this.formValidate.hotel_location,
-          hotel_rate: this.formValidate.hotel_rate,
+          id: this.formValidate.id,
+          hotelId: this.formValidate.hotelId,
+          hotelName: this.formValidate.hotelName,
+          hotelLocation: this.formValidate.hotelLocation,
+          hotelRate: this.formValidate.hotelRate,
           // hotel_score:,
-          hotel_intime: this.formValidate.hotel_intime,
-          hotel_outtime: this.formValidate.hotel_outtime,
-          hotel_buildtime: this.formValidate.hotel_buildtime,
-          hotel_rebuildtime: this.formValidate.hotel_rebuildtime,
-          hotel_rooms: this.formValidate.hotel_rooms,
-          main_facility: this.formValidate.main_facility,
-          hotel_service: this.formValidate.hotel_service,
-          hotel_facility: this.formValidate.hotel_facility,
-          room_facility: this.formValidate.room_facility,
-          hotel_help: this.formValidate.hotel_help
+          hotelIntime: this.formValidate.hotelIntime,
+          hotelOuttime: this.formValidate.hotelOuttime,
+          hotelBuildtime: this.formValidate.hotelBuildtime,
+          hotelRebuildtime: this.formValidate.hotelRebuildtime,
+          hotelRooms: this.formValidate.hotelRooms,
+          mainFacility: this.formValidate.mainFacility,
+          hotelService: this.formValidate.hotelService,
+          hotelFacility: this.formValidate.hotelFacility,
+          roomFacility: this.formValidate.roomFacility,
+          hotelHelp: this.formValidate.hotelHelp
         }
       })
         .then(response => {
